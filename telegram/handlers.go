@@ -41,6 +41,10 @@ func (h *Handler) HandleCallBack(query *tgbotapi.CallbackQuery) {
 		callBackConfig := tgbotapi.NewCallback(query.ID, "")
 		h.bot.Request(callBackConfig)
 	}()
+	appointments, err := h.appointmentService.GetAppointments(query.From.ID)
+	if err != nil {
+		log.Printf("Error processing appointments: %v", err)
+	}
 
 	switch query.Data {
 	case "show_main_menu":
@@ -52,6 +56,8 @@ func (h *Handler) HandleCallBack(query *tgbotapi.CallbackQuery) {
 	case "show_employees":
 		h.editMessage(chatID, messageID, texts.GetAllBarbers(), BarberMenu())
 		return
+	case "show_appointments":
+		h.editMessage(chatID, messageID, texts.GetAllAppointments(appointments), AppointmentMenu())
 	}
 	parts := strings.Split(query.Data, "_")
 	action := parts[0]

@@ -15,6 +15,9 @@ func MainMenu() tgbotapi.InlineKeyboardMarkup {
 		tgbotapi.NewInlineKeyboardRow(
 			tgbotapi.NewInlineKeyboardButtonData("👨‍🎨 Наша команда", "show_employees"),
 		),
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonData("📝 Ваши записи", "show_appointments"),
+		),
 	)
 }
 
@@ -156,4 +159,12 @@ func strikeThrough(s string) string {
 		result = append(result, r, '\u0336')
 	}
 	return string(result)
+}
+
+func AppointmentMenu() tgbotapi.InlineKeyboardMarkup {
+	return tgbotapi.NewInlineKeyboardMarkup(
+		tgbotapi.NewInlineKeyboardRow(
+			tgbotapi.NewInlineKeyboardButtonData("🏠 В главное меню", "show_main_menu"),
+		),
+	)
 }
